@@ -5,7 +5,8 @@ const FUNCTIONS = [
     { id: 2, formula: "2x³ - 5x² - 3x + 21", type: "continuous" },
     { id: 3, formula: "x³ - 3x² + 6x - 19", type: "continuous" },
     { id: 4, formula: "1/√|x|", type: "singular", point: 0, convergent: true },
-    { id: 5, formula: "1/(x-2)", type: "singular", point: 2, convergent: false }
+    { id: 5, formula: "1/(x-2)", type: "singular", point: 2, convergent: false },
+    { id: 6, formula: "sin(x)", type: "continuous" }
 ];
 
 const FunctionSelector = ({ selected, onChange }: { selected: number, onChange: (id: number) => void }) => {

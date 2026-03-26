@@ -35,6 +35,9 @@ public class FunctionProvider {
         });
         descriptions.put(5, "f(x) = 1/(x-2) (разрыв в x=2, расходится)");
         singularPoints.put(5, 2.0);
+
+        functions.put(6, x -> Math.sin(x));
+        descriptions.put(6, "f(x) = sin(x)");
     }
 
     public Function<Double, Double> getFunction(int id) {
@@ -115,6 +118,9 @@ public class FunctionProvider {
 
             case 5:
                 return Double.NaN;
+
+            case 6:
+                return Math.cos(a) - Math.cos(b);
 
             default:
                 throw new IllegalArgumentException("Нет аналитического выражения для функции " + id);
