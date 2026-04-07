@@ -6,6 +6,7 @@ const METHODS = [
     { id: 3, name: "Средние прямоугольники" },
     { id: 4, name: "Метод трапеций" },
     { id: 5, name: "Метод Симпсона" },
+    { id: 6, name: "Метод Монте-Карло" },
 ];
 
 const MethodSelector = ({ selected, onChange }: { selected: number, onChange: (id: number) => void }) => {

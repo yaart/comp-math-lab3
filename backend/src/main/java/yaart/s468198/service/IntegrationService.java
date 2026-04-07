@@ -318,6 +318,24 @@ public class IntegrationService {
         double b = request.getB();
         double eps = request.getEpsilon();
 
+        if (request.getMethodId() == 6) {
+            int fixedN = 100_000;
+            double result = method.calculate(f, a, b, fixedN);
+            Double exactValue = functionProvider.calculateExactValue(request.getFunctionId(), a, b);
+
+            return IntegrationResponse.builder()
+                    .result(result)
+                    .n(fixedN)
+                    .error(1.0 / Math.sqrt(fixedN))
+                    .exactValue(exactValue)
+                    .isImproper(false)
+                    .functionType("continuous (stochastic)")
+                    .singularityType("Нет особых точек")
+                    .status("success")
+                    .message("Вычислено методом Монте-Карло (фиксированное число точек)")
+                    .build();
+        }
+
         int n = 4;
         int k = method.getOrder();
         double ih, i2h, diff, error = 0;
@@ -329,7 +347,10 @@ public class IntegrationService {
                 i2h = method.calculate(f, a, b, n);
 
                 diff = Math.abs(i2h - ih);
-                error = diff / (Math.pow(2, k) - 1);
+                double divisor = Math.pow(2, k) - 1;
+                if (divisor <= 0) divisor = 1;
+
+                error = diff / divisor;
 
                 if (n > 10_000_000) {
                     return IntegrationResponse.builder()
@@ -377,6 +398,7 @@ public class IntegrationService {
             case 3 -> new RectangleMethod(RectangleMethod.Type.MIDDLE);
             case 4 -> new TrapezoidMethod();
             case 5 -> new SimpsonMethod();
+            case 6 -> new MonteCarloMethod();
             default -> throw new IllegalArgumentException("Неверный ID метода");
         };
     }

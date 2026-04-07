@@ -37,7 +37,6 @@ const IntegrationForm = ({ request, setRequest, onCalculate, loading }: Props) =
     return (
         <div className="space-y-4">
             <div className="grid grid-cols-3 gap-4">
-                {/* Поле A */}
                 <div>
                     <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Нижний (a)</label>
                     <input
@@ -101,6 +100,15 @@ const IntegrationForm = ({ request, setRequest, onCalculate, loading }: Props) =
                         {isDivergent()
                             ? 'Интеграл расходится на этом интервале!'
                             : 'Функция имеет разрыв на интервале. Будет использован метод для несобственных интегралов.'}
+                    </p>
+                </div>
+            )}
+
+            {request.methodId === 6 && (
+                <div className="p-3 bg-indigo-50 border border-indigo-100 rounded-lg animate-in fade-in zoom-in-95">
+                    <p className="text-[11px] text-indigo-700 leading-relaxed font-medium">
+                        <span className="font-bold">Метод Монте-Карло:</span> использует статистические испытания.
+                        Результат может незначительно отличаться при повторных запусках из-за случайности выборок.
                     </p>
                 </div>
             )}
